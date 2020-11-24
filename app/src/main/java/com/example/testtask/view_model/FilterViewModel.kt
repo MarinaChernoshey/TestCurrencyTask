@@ -1,6 +1,5 @@
 package com.example.testtask.view_model
 
-import android.util.Log
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableList
@@ -23,9 +22,4 @@ class FilterViewModel : ViewModel(), OnCurrencyCheckListener {
     override fun onChecked(checkableItem: CheckableItem) {
         checkableItem.isCheck = !checkableItem.isCheck
     }
-
-    fun update(checkableItem: CheckableItem) {
-        checkableItem.isCheck = !checkableItem.isCheck
-    }
-
-}
+ }

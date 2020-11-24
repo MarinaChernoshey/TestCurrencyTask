@@ -15,7 +15,6 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class CurrencyListViewModel(private val getCurrenciesUseCase: GetCurrenciesUseCase) : ViewModel() {
 
     private val items: ArrayList<Currency> = arrayListOf()
@@ -28,18 +27,15 @@ class CurrencyListViewModel(private val getCurrenciesUseCase: GetCurrenciesUseCa
             override fun areItemsTheSame(oldItem: Currency, newItem: Currency): Boolean =
                 oldItem.id == newItem.id
         })
+
     val error: ObservableField<String> = ObservableField("")
 
-    var testDateString = "02/04/2014"
-    var df: DateFormat = SimpleDateFormat("dd/MM/yyyy")
-
-    var d1: Date = df.parse(testDateString)
+    private val startTimeForDate:Long = 0
     val startTime = ObservableField(Date())
     val expireTime = ObservableField(Date())
-    val minTime = ObservableField(df.parse(testDateString))
+    val minTime = ObservableField(Date(startTimeForDate))
 
     val itemBinding = ItemBinding.of<Currency>(BR.item, R.layout.item_currency)
-
 
     fun loadCurrencies(date: Date, onResult: (List<CheckableItem>) -> Unit) {
         getCurrenciesUseCase.getCurrencies(date)

@@ -17,7 +17,6 @@ import com.example.testtask.view_model.CurrencyListViewModel
 import com.example.testtask.view_model.FilterViewModel
 import java.util.*
 
-
 class CurrencyListFragment : Fragment(), DatePickerChangeListener {
 
     private var viewModel: CurrencyListViewModel? = null
@@ -85,5 +84,4 @@ class CurrencyListFragment : Fragment(), DatePickerChangeListener {
             }
         }).get(CurrencyListViewModel::class.java)
     }
-
 }
