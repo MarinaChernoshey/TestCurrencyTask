@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TestTask</string>
+    <string name="error_load_data">Error</string>
+    <string name="filter_menu_item">Filter</string>
+</resources>
