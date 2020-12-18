@@ -15,7 +15,7 @@
 
         <variable
             name="datePickerChangeListener"
-            type="com.example.testtask.DatePickerChangeListener" />
+            type="com.example.testtask.listeners.DatePickerChangeListener" />
 
     </data>
 

@@ -1,4 +1,4 @@
-package com.example.testtask
+package com.example.testtask.factory
 
 import com.example.data.repository.CurrencyRepositoryImpl
 import com.example.data.CurrencyRetrofitService

@@ -11,7 +11,7 @@
 
         <variable
             name="onCheckedListener"
-            type="com.example.testtask.OnCurrencyCheckListener" />
+            type="com.example.testtask.listeners.OnCurrencyCheckListener" />
 
     </data>
 

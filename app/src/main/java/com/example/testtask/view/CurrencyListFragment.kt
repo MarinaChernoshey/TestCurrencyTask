@@ -1,6 +1,5 @@
 package com.example.testtask.view
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
@@ -9,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
-import com.example.testtask.DatePickerChangeListener
+import com.example.testtask.listeners.DatePickerChangeListener
 import com.example.testtask.R
 import com.example.testtask.TestTaskApplication
 import com.example.testtask.databinding.FragmentCurrencyListBinding
@@ -19,20 +18,12 @@ import java.util.*
 
 class CurrencyListFragment : Fragment(), DatePickerChangeListener {
 
-    private var viewModel: CurrencyListViewModel? = null
+    private lateinit var viewModel: CurrencyListViewModel
     private val filterViewModel by navGraphViewModels<FilterViewModel>(R.id.nav_graph)
     lateinit var binding: FragmentCurrencyListBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_currency_list, container, false
-        )
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_currency_list, container, false)
         binding.viewModel = viewModel
         binding.datePickerChangeListener = this
         return binding.root
@@ -40,18 +31,16 @@ class CurrencyListFragment : Fragment(), DatePickerChangeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewModel = provideViewModel()
-        viewModel?.loadCurrencies(Date()) {
+        viewModel.loadCurrencies(Date()) {
             filterViewModel.items.addAll(it)
         }
-
         setHasOptionsMenu(true)
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel?.applyFilters(filterViewModel.items)
+        viewModel.applyFilters(filterViewModel.items)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -66,18 +55,18 @@ class CurrencyListFragment : Fragment(), DatePickerChangeListener {
 
 
     override fun onChangeDate(date: Date) {
-        viewModel?.loadCurrencies(date) {
-            if (filterViewModel.items.isEmpty()) {
-                filterViewModel.items.addAll(it)
+        viewModel.apply {
+            loadCurrencies(date) {
+                if (filterViewModel.items.isEmpty()) {
+                    filterViewModel.items.addAll(it)
+                }
+                applyFilters(filterViewModel.items)
             }
-            viewModel?.applyFilters(filterViewModel.items)
         }
     }
 
     private fun provideViewModel(): CurrencyListViewModel {
-        val getCurrenciesUseCase =
-            (requireActivity().application as TestTaskApplication).dependencyFactory.provideGetCurrenciesUseCase()
-
+        val getCurrenciesUseCase = (requireActivity().application as TestTaskApplication).dependencyFactory.provideGetCurrenciesUseCase()
         return ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return CurrencyListViewModel(getCurrenciesUseCase) as T

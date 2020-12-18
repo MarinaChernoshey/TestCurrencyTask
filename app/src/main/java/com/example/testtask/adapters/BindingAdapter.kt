@@ -1,10 +1,11 @@
-package com.example.testtask
+package com.example.testtask.adapters
 
 import android.app.DatePickerDialog
 import android.content.Context
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableField
+import com.example.testtask.listeners.DatePickerChangeListener
 import java.util.*
 
 
